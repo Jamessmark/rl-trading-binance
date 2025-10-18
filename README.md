@@ -16,12 +16,12 @@ A high-performance, research-grade reinforcement learning system for intraday tr
 
 This repository includes:
 
-* ✅ A modular RL pipeline for market simulation and policy learning
-* ✅ A custom Gym-compatible environment with slippage, commissions, and penalties
-* ✅ A D3QN agent with PER buffer, epsilon decay, and action masking
-* ✅ A complete lifecycle: training, testing, backtesting, and baseline evaluation
-* ✅ An honest CNN classifier as a supervised baseline
-* ✅ Config-driven experiment isolation and reproducibility
+- ✅ A modular RL pipeline for market simulation and policy learning
+- ✅ A custom Gym-compatible environment with slippage, commissions, and penalties
+- ✅ A D3QN agent with PER buffer, epsilon decay, and action masking
+- ✅ A complete lifecycle: training, testing, backtesting, and baseline evaluation
+- ✅ An honest CNN classifier as a supervised baseline
+- ✅ Config-driven experiment isolation and reproducibility
 
 ---
 
@@ -49,25 +49,25 @@ A full equity curve over the backtest period (March–June 2025):
 
 ### 🔹 RL Agent (Test Set)
 
-* **Mean Reward**: 0.00285
-* **Mean PnL**: +28.47 USDT
-* **Win Rate**: 55.67%
+- **Mean Reward**: 0.00285
+- **Mean PnL**: +28.47 USDT
+- **Win Rate**: 55.67%
 
 ### 🔹 Backtest (Realistic Simulation)
 
-* **Final Balance Change**: +144.23%
-* **Sharpe Ratio**: 1.85
-* **Sortino Ratio**: 2.05
-* **Accuracy**: 69.6%
-* **Profit Days**: 78.57%
-* **Max Drawdown**: –22.49%
-* **Average Trade Size**: 11,324.29 USDT
-* **Trades per Day**: 2.00
+- **Final Balance Change**: +144.23%
+- **Sharpe Ratio**: 1.85
+- **Sortino Ratio**: 2.05
+- **Accuracy**: 69.6%
+- **Profit Days**: 78.57%
+- **Max Drawdown**: –22.49%
+- **Average Trade Size**: 11,324.29 USDT
+- **Trades per Day**: 2.00
 
 ### 🔹 Baseline (CNN Classifier)
 
-* **Mean PnL**: –27.95 USDT
-* **Win Rate**: 47.85%
+- **Mean PnL**: –27.95 USDT
+- **Win Rate**: 47.85%
 
 ---
 
@@ -76,7 +76,6 @@ A full equity curve over the backtest period (March–June 2025):
 A curated minute-level dataset from Binance Futures focused on high-volatility segments. Packaged in `.npz` format.
 
 Each session contains 60 minutes of market activity and serves as a standalone trading window.
-
 
 | Split      | Period                  | Sessions | Purpose              |
 | ---------- | ----------------------- | -------- | -------------------- |
@@ -91,27 +90,71 @@ Each session contains 60 minutes of market activity and serves as a standalone t
 
 ## 🚀 Quickstart
 
+### 📦 Installation
+
+This project uses [uv](https://github.com/astral-sh/uv) for fast and reliable package management.
+
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Clone the repository
+git clone https://github.com/YuriyKolesnikov/rl-trading-binance.git
+cd rl-trading-binance
+
+# Install dependencies with uv
+uv sync
+
+# Or install with optional dependencies
+uv sync --extra dev --extra optuna --extra jupyter
+
+# Activate the virtual environment
+source .venv/bin/activate  # On Unix/macOS
+# or
+.venv\Scripts\activate     # On Windows
+```
+
+### 🏃‍♂️ Running the Code
+
 ```bash
 # 1. Train the RL agent
-python train.py configs/alpha.py
+uv run python train.py configs/alpha.py
 
 # 2. Evaluate on the test set
-python test_agent.py configs/alpha.py
+uv run python test_agent.py configs/alpha.py
 
 # 3. Run realistic backtest
-python backtest_engine.py configs/alpha.py
+uv run python backtest_engine.py configs/alpha.py
 
 # 4. Train supervised CNN baseline
-python baseline_cnn_classifier.py configs/alpha_baseline_cnn.py
+uv run python baseline_cnn_classifier.py configs/alpha_baseline_cnn.py
 
-# 5. Run Optuna config optimization
-python optimize_cfg.py configs/alpha.py --trials 100 --jobs 1
+# 5. Run Optuna config optimization (requires optuna extra)
+uv run --extra optuna python optimize_cfg.py configs/alpha.py --trials 100 --jobs 1
 
 # 6. Show and save top-10 trials for a given config
-python get_info_from_optuna.py configs/alpha.py --n-best-trials 10
+uv run --extra optuna python get_info_from_optuna.py configs/alpha.py --n-best-trials 10
 
 # 7. If your objective is minimized
-python get_info_from_optuna.py configs/alpha.py --n-best-trials 10 --direction min
+uv run --extra optuna python get_info_from_optuna.py configs/alpha.py --n-best-trials 10 --direction min
+```
+
+### 🔧 Development Setup
+
+```bash
+# Install development dependencies
+uv sync --extra dev
+
+# Run code formatting
+uv run black .
+uv run isort .
+
+# Run linting
+uv run flake8 .
+uv run mypy .
+
+# Run tests
+uv run pytest
 ```
 
 ---
@@ -163,14 +206,14 @@ rl_trading_binance/
 
 A more advanced version of this agent is deployed live, scanning Binance Futures in real-time and publishing trade decisions:
 
-* Scans all symbols every minute
-* Detects volatility spikes
-* Predicts trade direction and confidence
-* Publishes signal + final trade outcome with PnL
+- Scans all symbols every minute
+- Detects volatility spikes
+- Predicts trade direction and confidence
+- Publishes signal + final trade outcome with PnL
 
 This is a public demonstration of production-oriented RL decision-making in streaming environments.
 
-👉 Follow: [@binance\_ai\_agent](https://t.me/binance_ai_agent)
+👉 Follow: [@binance_ai_agent](https://t.me/binance_ai_agent)
 
 | Live Signal + Prediction              | Verification Example             |
 | ------------------------------------- | -------------------------------- |
