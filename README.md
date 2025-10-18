@@ -102,7 +102,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 git clone https://github.com/YuriyKolesnikov/rl-trading-binance.git
 cd rl-trading-binance
 
-# Install dependencies with uv
+# Install dependencies with uv (已配置国内镜像源)
 uv sync
 
 # Or install with optional dependencies
@@ -112,6 +112,28 @@ uv sync --extra dev --extra optuna --extra jupyter
 source .venv/bin/activate  # On Unix/macOS
 # or
 .venv\Scripts\activate     # On Windows
+```
+
+#### 🇨🇳 国内用户加速设置
+
+项目已预配置国内镜像源以提高下载速度：
+
+- **主源**: 清华大学镜像 (pypi.tuna.tsinghua.edu.cn)
+- **备用源**: 阿里云、豆瓣、中科大、腾讯云镜像
+
+配置文件：
+
+- `uv.toml` - uv 专用配置文件
+- `pyproject.toml` - 项目配置中也包含镜像源设置
+
+如需手动指定镜像源：
+
+```bash
+# 使用清华镜像源
+uv sync --index-url https://pypi.tuna.tsinghua.edu.cn/simple/
+
+# 使用阿里云镜像源
+uv sync --index-url https://mirrors.aliyun.com/pypi/simple/
 ```
 
 ### 🏃‍♂️ Running the Code
