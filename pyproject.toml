@@ -7,7 +7,7 @@ authors = [
 ]
 readme = "README.md"
 license = {text = "MIT"}
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 keywords = ["reinforcement-learning", "trading", "binance", "deep-learning", "finance"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -15,7 +15,6 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -80,25 +79,15 @@ Repository = "https://github.com/YuriyKolesnikov/rl-trading-binance"
 Documentation = "https://github.com/YuriyKolesnikov/rl-trading-binance#readme"
 "Bug Tracker" = "https://github.com/YuriyKolesnikov/rl-trading-binance/issues"
 
-[project.scripts]
-rl-train = "train:main"
-rl-test = "test_agent:main"
-rl-backtest = "backtest_engine:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.uv]
-dev-dependencies = [
-    "pytest>=7.0",
-    "pytest-cov>=4.0",
-    "black>=23.0",
-    "isort>=5.12",
-    "flake8>=6.0",
-    "mypy>=1.0",
-]
+[tool.hatch.build.targets.wheel]
+packages = ["."]
 
+[tool.uv]
 # 国内镜像源配置 (提高下载速度)
 index-url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
 extra-index-url = [
@@ -109,7 +98,7 @@ extra-index-url = [
 
 [tool.black]
 line-length = 88
-target-version = ['py38']
+target-version = ['py39']
 include = '\.pyi?$'
 extend-exclude = '''
 /(
@@ -132,7 +121,7 @@ line_length = 88
 known_first_party = ["rl_trading_binance"]
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
